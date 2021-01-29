@@ -9,8 +9,11 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { prompt } = require("inquirer");
 
 
+// Write code to use inquirer to gather information about the development team members,
+// and to create objects for each team member (using the correct classes as blueprints!)
 const team = [];
 
 const manQ = [
@@ -34,12 +37,7 @@ const manQ = [
         name: "manNumber",
         message: "What is the manager's office number?",
     },
-]
-
-inquirer.prompt(manQ).then(function(answers) {
-    const manager = new Manager(answers.manName, answers.manId, answers.manEmail, answers.manNumber);
-    team.push(manager)
-});
+];
 
 const engQ = [
     {
@@ -62,42 +60,70 @@ const engQ = [
         name: "engGit",
         message: "What is the engineer's Github?",
     },
-]
-
-inquirer.prompt(engQ).then(function(answers) {
-    const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
-    team.push(engineer)
-});
+];
 
 const intQ = [
     {
         type: "input",
-        name: "engName",
-        message: "What is the engineer's name?",
+        name: "intName",
+        message: "What is the intern's name?",
     },
     {
         type: "input",
-        name: "engId",
-        message: "What is the engineer's id#?",
+        name: "intId",
+        message: "What is the intern's id#?",
     },
     {
         type: "input",
-        name: "engEmail",
-        message: "What is the engineer's email?",
+        name: "intEmail",
+        message: "What is the intern's email?",
     },
     {
         type: "input",
-        name: "engGit",
-        message: "What is the engineer's Github?",
+        name: "intSchool",
+        message: "What is the intern's Github?",
     },
-]
+];
 
-inquirer.prompt(engQ).then(function(answers) {
-    const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
-    team.push(engineer)
+const role = [
+    {
+        type: "list",
+        name: "roleJob",
+        message: "What is the role of this employee?",
+        choices: ["Intern", "Engineer", "Manager", "No new Employees"],
+
+    },
+];
+
+
+
+inquirer.prompt(role).then(function(answers) {
+
+    switch(answers.roleJob){
+        case "Intern":
+            inquirer.prompt(intQ).then(function(answers) {
+                const intern = new Intern(answers.intName, answers.intId, answers.intEmail, answers.intSchool);
+                team.push(intern);
+            });
+        case "Engineer":
+            inquirer.prompt(engQ).then(function(answers) {
+                const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
+                team.push(engineer);
+            });
+        case "Manager":
+            inquirer.prompt(manQ).then(function(answers) {
+                const manager = new Manager(answers.manName, answers.manId, answers.manEmail, answers.manNumber);
+                team.push(manager);
+            });
+        case "No new Employees":
+            render(team);
+
+
+    };
 });
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+
+
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -118,4 +144,3 @@ inquirer.prompt(engQ).then(function(answers) {
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-console.log("hi")
