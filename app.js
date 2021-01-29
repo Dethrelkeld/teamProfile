@@ -9,7 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-// const Manager = require("./lib/Manager");
+
 
 const team = [];
 
@@ -39,7 +39,63 @@ const manQ = [
 inquirer.prompt(manQ).then(function(answers) {
     const manager = new Manager(answers.manName, answers.manId, answers.manEmail, answers.manNumber);
     team.push(manager)
-})
+});
+
+const engQ = [
+    {
+        type: "input",
+        name: "engName",
+        message: "What is the engineer's name?",
+    },
+    {
+        type: "input",
+        name: "engId",
+        message: "What is the engineer's id#?",
+    },
+    {
+        type: "input",
+        name: "engEmail",
+        message: "What is the engineer's email?",
+    },
+    {
+        type: "input",
+        name: "engGit",
+        message: "What is the engineer's Github?",
+    },
+]
+
+inquirer.prompt(engQ).then(function(answers) {
+    const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
+    team.push(engineer)
+});
+
+const intQ = [
+    {
+        type: "input",
+        name: "engName",
+        message: "What is the engineer's name?",
+    },
+    {
+        type: "input",
+        name: "engId",
+        message: "What is the engineer's id#?",
+    },
+    {
+        type: "input",
+        name: "engEmail",
+        message: "What is the engineer's email?",
+    },
+    {
+        type: "input",
+        name: "engGit",
+        message: "What is the engineer's Github?",
+    },
+]
+
+inquirer.prompt(engQ).then(function(answers) {
+    const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
+    team.push(engineer)
+});
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
