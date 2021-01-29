@@ -95,32 +95,42 @@ const role = [
     },
 ];
 
+function quest() {
+
+    inquirer.prompt(role).then(function (answers) {
+
+        switch (answers.roleJob) {
+            case "Intern":
+                inquirer.prompt(intQ).then(function (answers) {
+                    const intern = new Intern(answers.intName, answers.intId, answers.intEmail, answers.intSchool);
+                    team.push(intern);
+                    quest();
+                    break;
+                });
+            case "Engineer":
+                inquirer.prompt(engQ).then(function (answers) {
+                    const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
+                    team.push(engineer);
+                    quest();
+                    break;
+                });
+            case "Manager":
+                inquirer.prompt(manQ).then(function (answers) {
+                    const manager = new Manager(answers.manName, answers.manId, answers.manEmail, answers.manNumber);
+                    team.push(manager);
+                    quest();
+                    break;
+                });
+            default:
+                render(team);
 
 
-inquirer.prompt(role).then(function(answers) {
+        };
+    });
+};
 
-    switch(answers.roleJob){
-        case "Intern":
-            inquirer.prompt(intQ).then(function(answers) {
-                const intern = new Intern(answers.intName, answers.intId, answers.intEmail, answers.intSchool);
-                team.push(intern);
-            });
-        case "Engineer":
-            inquirer.prompt(engQ).then(function(answers) {
-                const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
-                team.push(engineer);
-            });
-        case "Manager":
-            inquirer.prompt(manQ).then(function(answers) {
-                const manager = new Manager(answers.manName, answers.manId, answers.manEmail, answers.manNumber);
-                team.push(manager);
-            });
-        case "No new Employees":
-            render(team);
+quest();
 
-
-    };
-});
 
 
 
