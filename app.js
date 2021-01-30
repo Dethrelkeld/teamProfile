@@ -11,26 +11,54 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const { prompt } = require("inquirer");
 
+function createTeam() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR) 
+
+    } fs.writeFileSync(outputPath, render(team), "utf8");
+}
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 const team = [];
+
+const idArray = [];
+
+
 
 const manQ = [
     {
         type: "input",
         name: "manName",
         message: "What is the manager's name?",
+        validate: answer => {
+            if (answer !== "") {
+                return true;
+            } return "Please enter your name";
+        },
     },
     {
         type: "input",
         name: "manId",
         message: "What is the manager's id#?",
+        validate: answer => {
+            const pass = answer.match(/^[1-9]\d*$/);
+            if (pass) {
+                return true;
+            } return "Please enter a four digit number";
+        },
     },
     {
         type: "input",
         name: "manEmail",
         message: "What is the manager's email?",
+        validate: answer => {
+            const pass = answer.match(/^[1-9]\d*$/);
+            if (pass) {
+                return true;
+            } return "Please enter a vaild email";
+        },
+        
     },
     {
         type: "input",
@@ -81,7 +109,7 @@ const intQ = [
     {
         type: "input",
         name: "intSchool",
-        message: "What is the intern's Github?",
+        message: "What is the intern's school?",
     },
 ];
 
@@ -105,24 +133,24 @@ function quest() {
                     const intern = new Intern(answers.intName, answers.intId, answers.intEmail, answers.intSchool);
                     team.push(intern);
                     quest();
-                    break;
                 });
+                break;
             case "Engineer":
                 inquirer.prompt(engQ).then(function (answers) {
                     const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
                     team.push(engineer);
                     quest();
-                    break;
                 });
+                break;
             case "Manager":
                 inquirer.prompt(manQ).then(function (answers) {
                     const manager = new Manager(answers.manName, answers.manId, answers.manEmail, answers.manNumber);
                     team.push(manager);
                     quest();
-                    break;
                 });
+                break;
             default:
-                render(team);
+                createTeam();
 
 
         };
