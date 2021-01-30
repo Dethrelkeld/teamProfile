@@ -44,7 +44,11 @@ const manQ = [
         validate: answer => {
             const pass = answer.match(/^[1-9]\d*$/);
             if (pass) {
-                return true;
+                if (idArray.includes(answer)) {
+                    return "Please select unique id"
+                } else {
+                    return true;
+                }
             } return "Please enter a four digit number";
         },
     },
@@ -53,7 +57,7 @@ const manQ = [
         name: "manEmail",
         message: "What is the manager's email?",
         validate: answer => {
-            const pass = answer.match(/^[1-9]\d*$/);
+            const pass = answer.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
             if (pass) {
                 return true;
             } return "Please enter a vaild email";
@@ -64,6 +68,12 @@ const manQ = [
         type: "input",
         name: "manNumber",
         message: "What is the manager's office number?",
+        validate: answer => {
+            const pass = answer.match(/^[1-9]\d*$/);
+            if (pass) {
+                return true;
+            } return "Please enter a four digit number";
+        },
     },
 ];
 
@@ -132,6 +142,7 @@ function quest() {
                 inquirer.prompt(intQ).then(function (answers) {
                     const intern = new Intern(answers.intName, answers.intId, answers.intEmail, answers.intSchool);
                     team.push(intern);
+                    idArray.push(answers.intId);
                     quest();
                 });
                 break;
@@ -139,6 +150,7 @@ function quest() {
                 inquirer.prompt(engQ).then(function (answers) {
                     const engineer = new Engineer(answers.engName, answers.engId, answers.engEmail, answers.engGit);
                     team.push(engineer);
+                    idArray.push(answers.engId);
                     quest();
                 });
                 break;
@@ -146,6 +158,7 @@ function quest() {
                 inquirer.prompt(manQ).then(function (answers) {
                     const manager = new Manager(answers.manName, answers.manId, answers.manEmail, answers.manNumber);
                     team.push(manager);
+                    idArray.push(answers.manId);
                     quest();
                 });
                 break;
