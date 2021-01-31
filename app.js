@@ -82,21 +82,47 @@ const engQ = [
         type: "input",
         name: "engName",
         message: "What is the engineer's name?",
+        validate: answer => {
+            if (answer !== "") {
+                return true;
+            } return "Please enter your name";
+        },
     },
     {
         type: "input",
         name: "engId",
         message: "What is the engineer's id#?",
+        validate: answer => {
+            const pass = answer.match(/^[1-9]\d*$/);
+            if (pass) {
+                if (idArray.includes(answer)) {
+                    return "Please select unique id"
+                } else {
+                    return true;
+                }
+            } return "Please enter a four digit number";
+        },
     },
     {
         type: "input",
         name: "engEmail",
         message: "What is the engineer's email?",
+        validate: answer => {
+            const pass = answer.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+            if (pass) {
+                return true;
+            } return "Please enter a vaild email";
+        },
     },
     {
         type: "input",
         name: "engGit",
         message: "What is the engineer's Github?",
+        validate: answer => {
+            if (answer !== "") {
+                return true;
+            } return "Please enter engineer's Gituhub";
+        },
     },
 ];
 
@@ -105,21 +131,47 @@ const intQ = [
         type: "input",
         name: "intName",
         message: "What is the intern's name?",
+        validate: answer => {
+            if (answer !== "") {
+                return true;
+            } return "Please enter your name";
+        },
     },
     {
         type: "input",
         name: "intId",
         message: "What is the intern's id#?",
+        validate: answer => {
+            const pass = answer.match(/^[1-9]\d*$/);
+            if (pass) {
+                if (idArray.includes(answer)) {
+                    return "Please select unique id"
+                } else {
+                    return true;
+                }
+            } return "Please enter a four digit number";
+        },
     },
     {
         type: "input",
         name: "intEmail",
         message: "What is the intern's email?",
+        validate: answer => {
+            const pass = answer.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+            if (pass) {
+                return true;
+            } return "Please enter a vaild email";
+        },
     },
     {
         type: "input",
         name: "intSchool",
         message: "What is the intern's school?",
+        validate: answer => {
+            if (answer !== "") {
+                return true;
+            } return "Please enter school name";
+        },
     },
 ];
 
