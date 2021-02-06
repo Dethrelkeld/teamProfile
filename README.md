@@ -4,7 +4,9 @@ https://dethrelkeld.github.io/teamProfile/
 
 ![screenshot of webpage](./teamprofile.png)
 
-This is a project to build cards for team members based on role, Interns, Engineers, Managers.
+![gif of webpage](./threlkeldteamProfile.gif)
+
+This is a project to build cards for team members based on role (Interns, Engineers, Managers) from the commmand line using NodeJS.
 
 Technologies used:
 
